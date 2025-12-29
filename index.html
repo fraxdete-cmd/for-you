@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Letter to You</title>
+
+  <!-- Typewriter Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Special+Elite&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      height: 100vh;
+      background: radial-gradient(circle, #444, #000);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Special Elite', monospace;
+    }
+
+    /* INTRO */
+    #intro {
+      text-align: center;
+      color: white;
+      animation: fadeIn 2s forwards;
+    }
+
+    #intro p {
+      margin-bottom: 20px;
+      opacity: 0;
+      animation: fadeIn 3s forwards;
+    }
+
+    button {
+      background: white;
+      color: black;
+      border: none;
+      padding: 10px 25px;
+      cursor: pointer;
+      border-radius: 20px;
+      font-size: 14px;
+    }
+
+    button:hover {
+      background: #ddd;
+    }
+
+    /* LETTER */
+    #letter {
+      display: none;
+    }
+
+    .paper {
+      width: 800px;
+      max-width: 90%;
+      padding: 60px 50px;
+      background:
+        repeating-linear-gradient(
+          white,
+          white 28px,
+          #d7dee3 29px
+        );
+      box-shadow: 0 20px 40px rgba(0,0,0,0.45);
+      color: #333;
+      line-height: 29px;
+      border-radius: 4px;
+      font-size: 18px;
+      animation: zoomIn 1s ease forwards;
+    }
+
+    /* Cursor */
+    #letterText::after {
+      content: "|";
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes zoomIn {
+      from {
+        transform: scale(0.9);
+        opacity: 0;
+      }
+      to {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- INTRO SCREEN -->
+  <div id="intro">
+    <p>For someone important.</p>
+    <button id="readBtn">Read</button>
+  </div>
+
+  <!-- LETTER -->
+  <div id="letter">
+    <div class="paper">
+      <p id="letterText"></p>
+    </div>
+  </div>
+
+  <!-- Typing Sound -->
+  <audio id="typeSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_9e6a9c1a75.mp3?filename=typewriter-key-1-112200.mp3" preload="auto"></audio>
+
+  <script>
+    const readBtn = document.getElementById("readBtn");
+    const intro = document.getElementById("intro");
+    const letter = document.getElementById("letter");
+    const letterText = document.getElementById("letterText");
+    const typeSound = document.getElementById("typeSound");
+
+    const text = `
+bff, it’s already a new year.
+
+I just wish you well and hope you stay happy, always.
+
+Never forget that I care for you.
+Never forget that I’m always here for you.
+I’ve got your back always, no matter what.
+
+We both cared, and we both tried in the best way we knew how.
+But the universe just never gave us enough space to become “us.”
+Still, I’m grateful for every moment we shared.
+
+I hope you never change.
+Stay the way you are,
+because you’re more beautiful than you think you are.
+
+You were, and will always be,
+one of the most beautiful things that ever happened to me.
+`;
+
+    let index = 0;
+    const speed = 60; // slower, emotional typing
+
+    function typeWriter() {
+      if (index < text.length) {
+        const char = text.charAt(index);
+
+        if (char === "\n") {
+          letterText.innerHTML += "<br>";
+        } else {
+          letterText.innerHTML += char;
+          typeSound.currentTime = 0;
+          typeSound.play();
+        }
+
+        index++;
+        setTimeout(typeWriter, speed);
+      }
+    }
+
+    readBtn.addEventListener("click", () => {
+      intro.style.display = "none";
+      letter.style.display = "block";
+      typeWriter();
+    });
+  </script>
+
+</body>
+</html>
 
